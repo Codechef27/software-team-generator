@@ -1,16 +1,18 @@
 {
 
   "scripts": {
+
     "test": "jest"
+
   },
- 
+
   "dependencies": {
- 
-   
-  "inquirer": "^9.0.0",
- 
-   
-  "jest": "^28.1.1"
- 
+
+    "inquirer": "^8.2.4",
+
+    "jest": "^28.1.1"
+
   }
+
 }
+
