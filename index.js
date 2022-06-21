@@ -28,14 +28,16 @@ const inquirer = require('inquirer' );
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const writeFile = require('./src/generateHTML')
+let softwareTeam = [];
 
-const managerPrompt = (managerData) => {
+const managerPrompt = (data) => {
     return inquirer.prompt([ 
 
         {
             type: 'input',
             name: 'name',
-            message: "Enter your team manager's name?",
+            message: "Enter the team manager's name.",
             validate: name => {
                 if (name) {
                     return true
@@ -48,12 +50,12 @@ const managerPrompt = (managerData) => {
         {
             type: 'input',
             name: 'employee id',
-            message: "What is your team manager's employee id number?",
+            message: "Enter the team manager's employee id number.",
             validate: employeeId => {
                 if (employeeId) {
                     return true
                 } else {
-                    console.log('You must enter a id number');
+                    console.log('You must enter a id number!');
                 }
             }
 
@@ -62,100 +64,134 @@ const managerPrompt = (managerData) => {
         {
             type: 'input',
             name: 'email',
-            message: 'Enter a email address for the team manager!'
+            message: 'Enter the email address for the team manager.'
         },
 
         {
             type: 'input',
             name: 'officeNumber',
-            message: 'Enter the office number for the team manager'
+            message: 'Enter the office number for the team manager.'
         }
     ])
+    .then(data = () => {
+        this.Manager = new Manager(data);
+        softwareTeam.push(this.Manager);
+        addOrFinished();
+    })
 };
 
-const addOrFinished = () => {
+
+
+const addOrFinished = (data) => {
     console.log(`
     =======================
        Add a Team Member
     =======================
-      `);
+    `);
     return inquirer.prompt([
         {
-            type: 'checkbox',
+            type: 'list',
             name: 'teamMember',
-            message: 'Are you adding a Engineer a Intern or are you finished building your team?',
-            choices: ['Add a Engineer', 'Add a Intern', 'Finished!'],
+            message: 'Are you adding a Engineer, a Intern or are you finished building your team?',
+            choices: ['Add Engineer', 'Add Intern', 'Finished!'],
             default: 'finished'
         }
     ])
 
+    .then(data => {
+        if (data.teamMember === 'Add Engineer') {
+            addEngineer();
+        } else if (data.teamMember === 'Add Intern') {
+            addIntern();
+        } else if (writeFile) {
+            console.log('Your team page has been created!');
+        }
+    })
+
 }
 
-const addEngineer = () => {
+
+const addEngineer = (data) => {
     console.log(`
     =============
       Engineer
     =============  
     `)
     return inquirer.prompt([
+
         {
             type: 'input',
             name: 'name',
-            message: "What is the Engineer's name?",
+            message: "Enter the Engineer's name.",
         },
 
         {
             type: 'input',
             name: 'employee id',
-            message: "What is the Engineer's employee id number?"
+            message: "Enter the Engineer's employee id number."
         },
 
         {
             type: 'input',
             name: 'email',
-            message: "What is the Engineer's email address?"
+            message: "Enter the Engineer's email address."
         },
         {
             type: 'input',
             name: 'github',
-            message: "What is the Engineer's Github username?"
+            message: "Enter the Engineer's Github username."
         }
+
     ])
+    .then(data = () => {
+        this.Engineer = new Engineer(data);
+        softwareTeam.push(this.Engineer);
+        addOrFinished();
+    })
 };
 
-const addIntern = () => {
+const addIntern = (data) => {
     console.log(`
     =============
        Intern
     =============  
     `)
     return inquirer.prompt([
+
         {
             type: 'input',
             name: 'name',
-            message: "What is the Intern's name?",
+            message: "Enter the Intern's name.",
         },
 
         {
             type: 'input',
             name: 'employee id',
-            message: "What is the Intern's employee id number?"
+            message: "Enter the Intern's employee id number."
         },
 
         {
             type: 'input',
             name: 'email',
-            message: "What is the Intern's email address?"
+            message: "Enter the Intern's email address."
         },
         {
             type: 'input',
             name: 'college',
-            message: "What college is the intern from?"
+            message: "Enter the college the intern is from."
         }
     ])
+
+    .then(data = () => {
+        this.Intern = new Intern(data);
+        softwareTeam.push(this.Intern);
+        addOrFinished();
+    })
+
 };
 
+managerPrompt();
+   
 
-managerPrompt()
 
 
