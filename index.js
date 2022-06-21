@@ -25,10 +25,12 @@
 // THEN I exit the application, and the HTML is generated
 
 const inquirer = require('inquirer' );
+// const employee = require('./lib/Employee')
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const writeFile = require('./src/generateHTML')
+const fs = require('fs');
+const generateHtml = require('./src/markup')
 let softwareTeam = [];
 
 const managerPrompt = (data) => {
@@ -82,7 +84,7 @@ const managerPrompt = (data) => {
 
 
 
-const addOrFinished = (data) => {
+const addOrFinished = () => {
     console.log(`
     =======================
        Add a Team Member
@@ -103,8 +105,9 @@ const addOrFinished = (data) => {
             addEngineer();
         } else if (data.teamMember === 'Add Intern') {
             addIntern();
-        } else if (writeFile) {
-            console.log('Your team page has been created!');
+        } else if ('finished') {
+            generateTeam();
+            // console.log('Your team page has been created!');
         }
     })
 
@@ -189,6 +192,21 @@ const addIntern = (data) => {
     })
 
 };
+
+function writeFile(fileName, data) {
+    fs.writeFile(fileName, data, function (err) {
+        if (err) {
+            throw err
+        } else console.log(" Your Software Team's page has been created");
+
+    })
+};
+
+const generateTeam = () => {
+    let HTMLContent = generateHtml(softwareTeam)
+    writeFile('./dist/index.html', HTMLContent)
+};
+
 
 managerPrompt();
    
