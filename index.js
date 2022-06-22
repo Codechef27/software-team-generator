@@ -25,7 +25,7 @@
 // THEN I exit the application, and the HTML is generated
 
 const inquirer = require('inquirer' );
-// const employee = require('./lib/Employee')
+const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -33,7 +33,7 @@ const fs = require('fs');
 const generateHtml = require('./src/markup')
 let softwareTeam = [];
 
-const managerPrompt = (data) => {
+const managerPrompt = () => {
     return inquirer.prompt([ 
 
         {
@@ -51,7 +51,7 @@ const managerPrompt = (data) => {
 
         {
             type: 'input',
-            name: 'employee id',
+            name: 'id',
             message: "Enter the team manager's employee id number.",
             validate: employeeId => {
                 if (employeeId) {
@@ -75,11 +75,18 @@ const managerPrompt = (data) => {
             message: 'Enter the office number for the team manager.'
         }
     ])
-    .then(data = () => {
-        this.Manager = new Manager(data);
-        softwareTeam.push(this.Manager);
+    .then(function(data) {
+        let name = data.name;
+        let id = data.id;
+        let email = data.email;
+        let officeNumber = data.officeNumber
+        let manager = new Manager(name, id, email, officeNumber);
+        softwareTeam.push(manager);
         addOrFinished();
+    
     })
+       
+  
 };
 
 
