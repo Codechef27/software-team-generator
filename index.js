@@ -137,7 +137,7 @@ const addEngineer = (data) => {
 
         {
             type: 'input',
-            name: 'employee id',
+            name: 'id',
             message: "Enter the Engineer's employee id number."
         },
 
@@ -153,11 +153,17 @@ const addEngineer = (data) => {
         }
 
     ])
-    .then(data = () => {
-        this.Engineer = new Engineer(data);
-        softwareTeam.push(this.Engineer);
+    .then(function(data) {
+        let name = data.name;
+        let id = data.id;
+        let email = data.email;
+        let github = data.github;
+        let engineer = new Engineer(name, id, email, github);
+        softwareTeam.push(engineer);
         addOrFinished();
+    
     })
+   
 };
 
 const addIntern = (data) => {
@@ -176,7 +182,7 @@ const addIntern = (data) => {
 
         {
             type: 'input',
-            name: 'employee id',
+            name: 'id',
             message: "Enter the Intern's employee id number."
         },
 
@@ -192,10 +198,15 @@ const addIntern = (data) => {
         }
     ])
 
-    .then(data = () => {
-        this.Intern = new Intern(data);
-        softwareTeam.push(this.Intern);
+    .then(function(data) {
+        let name = data.name;
+        let id = data.id;
+        let email = data.email;
+        let college = data.college;
+        let intern = new Intern(name, id, email, college);
+        softwareTeam.push(intern);
         addOrFinished();
+    
     })
 
 };

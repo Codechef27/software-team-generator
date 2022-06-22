@@ -1,0 +1,35 @@
+* {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    margin: 10px;
+    box-shadow: 0 3px 6px 0 black;
+    background-color: rgb(81, 148, 145);
+}
+
+.card-body {
+    background-color: rgb(159, 197, 195) ;
+}
+
+.list-group-item {
+    background-color: rgb(188, 226, 224);
+}
+
+.engine {
+    height: 4vw;
+    margin: 0;
+    padding: 0;
+}
+
+.intern {
+    height: 4vw;
+   margin: 0;
+   
+}

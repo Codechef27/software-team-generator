@@ -23,10 +23,53 @@ function generateTeamCards(softwareTeam) {
 
     };
 
-   
+    const generateEngineer = (engineer) => {
+        return `
+        <div class="row card col-4">
+        <div class="card-header bg-info text-light">
+            <div>
+            <h2 class="card-title">${engineer.getName()}</h2>
+            <div class="d-flex flex-row text-light engine"><img src="./images/engineer.svg">
+                <h2 class="card-title ps-3 pt-2">${engineer.getRole()}</h2>
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="list-group-item">Employee ID: ${engineer.getId()}</h4>
+            <h4 class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></h4>
+            <h4 class="list-group-item">Github: ${engineer.getGithub()}</h4>
+        </div>
+        </div>
+        `
     
+
+    };
+
+    const generateIntern = (intern) => {
+        return `
+        <div class="row card col-4">
+        <div class="card-header bg-info text-light">
+            <div>
+            <h2 class="card-title">${intern.getName()}</h2>
+             <div class="d-flex flex-row text-light intern"><img src="./images/intern.svg">
+                <h2 class="card-title ps-3">${intern.getRole()}</h2>
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="list-group-item">Employee ID: ${intern.getId()}</h4>
+            <h4 class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></h4>
+            <h4 class="list-group-item">College: ${intern.getCollege()}</h4>
+        </div>
+        </div>
+        `
+    
+
+    };
     const data =[];
-    data.push(softwareTeam.filter(employee => employee.getRole() == "Manager").map(manager => generateManager(manager))); 
+    data.push(softwareTeam.filter(employee => employee.getRole() == "Manager").map(manager => generateManager(manager)));
+    data.push(softwareTeam.filter(employee => employee.getRole() == "Engineer").map(engineer => generateEngineer(engineer)));
+    data.push(softwareTeam.filter(employee => employee.getRole() == "Intern").map(intern => generateIntern(intern))); 
     return data.flat().join('');  
 };
 
